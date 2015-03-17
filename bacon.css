@@ -24,6 +24,7 @@ body {
      margin-top: 70px;
      margin-bottom: 50px;
      background-color:#dad9d4;
+     font-family: Verdana sans-serif;
 }
 
 #frame {
@@ -31,4 +32,12 @@ body {
        background-color: white;
        margin: 0 auto;
        padding: 0%;
+}
+
+#main {
+      box-shadow: 10px 10px 5 px #888888;
+}
+
+#main h1,p {
+      text-align: center;
 }
