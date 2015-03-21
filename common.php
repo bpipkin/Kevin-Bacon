@@ -9,7 +9,7 @@
     $sql = "SELECT id
             FROM actors
             WHERE first_name LIKE'".$_GET['firstname']."%' AND last_name = '".$_GET['lastname']."'
-            AND film_count <=
+            AND film_count >=
                 all(SELECT film_count
                     FROM actors
                     WHERE first_name LIKE '".$_GET['firstname']."%' AND last_name = '".$_GET['lastname']."')";
