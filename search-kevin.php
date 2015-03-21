@@ -66,19 +66,8 @@
 						echo $variable=mysql_result($result,$i,"year");
 						echo "</td></tr>";
 						$i++;
-						/*echo "<tr><td>";
-						echo $variable=mysql_result($result,$i,"id");
-						echo "</td><td>";
-						echo $variable=mysql_result($result,$i,"first_name");
-						echo "</td><td>";
-						echo $variable2=mysql_result($result,$i,"last_name");
-						echo "</td></tr>";
-						$i++;*/
 					}
-
-
-echo 'Connected successfully';
-mysql_close($link);
+					mysql_close($link);
 				?>
             </table>  
             
