@@ -39,12 +39,11 @@
 
 					$db = mysql_select_db('imdb', $link);
 					$sql = "SELECT id FROM actors WHERE first_name = '".$_GET['firstname']."' AND last_name = '".$_GET['lastname']."'";
-					echo $sql;
+					
 					$result = mysql_query($sql, $link);
 					
 					$id = mysql_result($result,0, 'id');
 					
-					echo "id: ".$id;
 					
 					$sql2 = "SELECT m.name, m.year ";
 					$sql2.= "FROM movies m ";
