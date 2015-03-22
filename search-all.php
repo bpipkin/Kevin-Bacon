@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Search Kevin Bacon</title>
+<title>Search All</title>
 		<!-- php file for searching for movies where the entered actor and Kevin Bacon appear together
         	@author: Zachary Stevens
         -->
@@ -45,21 +45,19 @@
                     foreach($dbh->query($q1) as $row){
 						$id = $row['id']	;
 					}
-
-					echo $id;
 					
 				    /*
                 	Joins actors, movies, and roles tables, then Selects movie name and year
                 	of the movie the actor appears in.
                 	*/
-                	`
+                	
             		$sql2 = "SELECT m.name, m.year ";
                 	$sql2.= "FROM movies m ";
                 	$sql2.= "JOIN roles r ON r.movie_id = m.id ";
                 	$sql2.= "JOIN actors a ON r.actor_id = a.id ";
                 	$sql2.= "WHERE (r.actor_id='".$id."') ";
                 	$sql2.= "ORDER BY m.year DESC, m.name ASC";
-
+					
                 	$i = 0;
                 	foreach($dbh->query($sql2) as $row){
                 		echo "<tr><td>";
@@ -100,6 +98,6 @@
                 	</fieldset>
                 </form>
             </div>
-      </div>
-    </body>
+    </div>
+</body>
 </html>
