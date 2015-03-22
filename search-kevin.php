@@ -35,23 +35,24 @@
                     <td>Year</td>
                 </tr>
             	<?php
-				
-					$link = mysql_connect('localhost', 'root', 'kaiden90');
-					if (!$link) {
-    					die('Could not connect: ' . mysql_error());
-					}
-					//specify the database
-					$db = mysql_select_db('imdb', $link);
+					$user = 'root';
+					$pass = 'kaiden90';
+					$dbh = new PDO('mysql:host=localhost;dbname=imdb', $user, $pass);
+					
 					//Gets the searched actor's id
-					$sql = "SELECT id FROM actors WHERE first_name = '".$_GET['firstname']."' AND last_name = '".$_GET['lastname']."'";
+					$q1 = "SELECT id FROM actors WHERE first_name = '".$_GET['firstname']."' AND last_name = '".$_GET['lastname']."'";
 					//Gets Kevin Bacon's id
 					$baconSql = "SELECT id FROM actors WHERE first_name = 'Kevin' AND last_name = 'Bacon'";
 					
-					$result = mysql_query($sql, $link);
-					$id = mysql_result($result,0, 'id');
+					foreach($dbh->query($q1) as $row){
+						$id = $row['id']	;
+					}
+				
+					foreach($dbh->query($baconSql) as $row){
+						$baconId = $row['id'];
+					}
 					
-					$result = mysql_query($baconSql, $link);
-					$baconId = mysql_result($result,0, 'id');
+					//$baconId = mysql_result($result,0, 'id');
 					
 					/*	
 						Joins actors, movies, and roles tables, then Selects movie name and year 
@@ -65,22 +66,19 @@
 					$sql2.= "JOIN actors a2 ON r2.actor_id = a2.id ";
 					$sql2.= "WHERE ((r1.actor_id='".$baconId."') AND (r2.actor_id='".$id."') AND (r1.movie_id = r2.movie_id))";
 					$sql2.= "ORDER BY m.year DESC";
-					$result = mysql_query($sql2, $link);
 					
-					$num=mysql_numrows($result);
 					$i = 0;
-					//Prints the results into the table
-					while($i < $num){								
+					foreach($dbh->query($sql2) as $row){					
 						echo "<tr><td>";
 						echo $i+1;
 						echo "</td><td>";
-						echo $variable=mysql_result($result,$i,"name");
+						echo $row['name'];
 						echo "</td><td>";
-						echo $variable=mysql_result($result,$i,"year");
+						echo $row['year'];
 						echo "</td></tr>";
 						$i++;
 					}
-					mysql_close($link);
+					$dbh = null;
 				?>
             </table>  
             
