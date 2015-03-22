@@ -36,7 +36,7 @@
                 </tr>
             	<?php
 					$user = 'root';
-					$pass = 'kaiden90';
+					$pass = '';
 					$dbh = new PDO('mysql:host=localhost;dbname=imdb', $user, $pass);
 					
 					//Gets the searched actor's id
@@ -46,6 +46,8 @@
 						$id = $row['id']	;
 					}
 
+					echo $id;
+					
 				    /*
                 	Joins actors, movies, and roles tables, then Selects movie name and year
                 	of the movie the actor appears in.
@@ -56,7 +58,7 @@
                 	$sql2.= "JOIN roles r ON r.movie_id = m.id ";
                 	$sql2.= "JOIN actors a ON r.actor_id = a.id ";
                 	$sql2.= "WHERE (r.actor_id='".$id."') ";
-                	$sql2.= "ORDER BY m.year DESC";
+                	$sql2.= "ORDER BY m.year DESC, m.name ASC";
 
                 	$i = 0;
                 	foreach($dbh->query($sql2) as $row){
