@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Search All</title>
-    <!-- php file for searching for movies where the entered actor and Kevin Bacon appear together
+    <!-- php file for searching for all movies that the searched actor appears in
         @author: Zachary Stevens
     -->
 
@@ -26,23 +26,19 @@
 
     <div id="main">
         <h1>Results for <?php echo $_GET['firstname'] . " " . $_GET['lastname'] ?></h1> <br/><br/>
+        <div id="text">All Films</div><br/>
         <table>
             <tr>
-                <td>#</td>
-                <td>Title</td>
-                <td>Year</td>
+                <td class="index"><strong>#</strong></td>
+                <td class="title"><strong>Title</strong></td>
+                <td class="year"><strong>Year</strong></td>
             </tr>
             <?php
             include("common.php");
-            $user = 'root';
-            $pass = '';
-            $dbh = new PDO('mysql:host=localhost;dbname=imdb', $user, $pass);
-
             /*
             Joins actors, movies, and roles tables, then Selects movie name and year
             of the movie the actor appears in.
             */
-            echo $id;
             $sql2 = "SELECT m.name, m.year ";
             $sql2.= "FROM movies m ";
             $sql2.= "JOIN roles r ON r.movie_id = m.id ";
@@ -51,21 +47,22 @@
             $sql2.= "ORDER BY m.year DESC, m.name ASC";
 
             $i = 0;
+			//Prints every movie result
             foreach($dbh->query($sql2) as $row){
-                echo "<tr><td>";
+                echo "<tr><td class=\"index\">";
                 echo $i+1;
-                echo "</td><td>";
+                echo "</td><td class=\"title\">";
                 echo $row['name'];
-                echo "</td><td>";
+                echo "</td><td class=\"year\">";
                 echo $row['year'];
                 echo "</td></tr>";
                 $i++;
             }
+			//close the connection
             $dbh = null;
             ?>
 
         </table>
-
         <!-- form to search for every movie by a given actor -->
         <form action="search-all.php" method="get">
             <fieldset>
